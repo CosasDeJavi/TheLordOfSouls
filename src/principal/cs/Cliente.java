@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import principal.peticiones.*;
-import principal.pojo.POJOLogin;
 
 
 public class Cliente{
