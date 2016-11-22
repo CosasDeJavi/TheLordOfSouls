@@ -1,5 +1,7 @@
 package principal.entes.personajes;
 
+import java.util.ArrayList;
+
 public abstract class Especialidad {
 	
 	protected String nombre;
@@ -10,9 +12,15 @@ public abstract class Especialidad {
 	protected int agilidad;
 	protected int defensa;
 	protected int magiaTot=0;
+	protected ArrayList<String> habilidades=new ArrayList<String>();
+	
 	
 	public abstract int calcularPuntosDeAtaque();
 	public abstract int obtenerPuntosDeDefensa();
+	
+	public int getMagiaTot() {
+		return magiaTot;
+	}
 	
 	public Hechicero getHechicero(){
 		
@@ -50,4 +58,8 @@ public abstract class Especialidad {
 	public int getMagia() {
 		return magia;
 	}
+	public ArrayList<String> getHabilidades() {
+		return habilidades;
+	}
 }
+
