@@ -42,6 +42,14 @@ public abstract class Personaje implements Atacable,Comparable < Personaje >{
 		
 	}
 	
+	public int getEnergiaTot() {
+		return energiaTot;
+	}
+
+	public int getSaludTot() {
+		return saludTot;
+	}
+
 	protected void despuesDeAtacar(){ }
 	
 	protected abstract boolean puedeAtacar();
@@ -58,12 +66,12 @@ public abstract class Personaje implements Atacable,Comparable < Personaje >{
 		return true;
 	}
 	
-	public void serAtacado(int daño){
+	public void serAtacado(int daÃ±o){
 		
-		if((daño - obtenerPuntosDeDefensa()) > 0)
-			this.salud-=(daño - obtenerPuntosDeDefensa()); //el daño de reduce en base a la defensa del personaje//
+		if((daÃ±o - obtenerPuntosDeDefensa()) > 0)
+			this.salud-=(daÃ±o - obtenerPuntosDeDefensa()); //el daÃ±o de reduce en base a la defensa del personaje//
 		else
-			this.salud-= 1; //daño por defecto//cuando la defensa supera a el daño//
+			this.salud-= 1; //daÃ±o por defecto//cuando la defensa supera a el daÃ±o//
 	}
 	
 	public void serCuradoTotalmente(){
@@ -359,3 +367,4 @@ public abstract class Personaje implements Atacable,Comparable < Personaje >{
 		return 0;
 	}
 }
+
