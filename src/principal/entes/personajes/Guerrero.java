@@ -7,6 +7,11 @@ public class Guerrero extends Especialidad{
 	
 	public Guerrero(){
 		
+		
+		this.habilidades.add("Posicion Agresiva");
+		this.habilidades.add("Posicion Defensiva");
+		this.habilidades.add("Posicion Normal");
+		
 		this.energia=4;
 		this.salud=4;
 		this.agilidad=-2;
@@ -15,7 +20,7 @@ public class Guerrero extends Especialidad{
 		this.nombre="Guerrero";
 		
 		this.descripcion="\nLos Guerreros sobresalen en combate derrotando a sus enemigos, controlando el flujo de la batalla, y sobreviviendo a incursiones."
-				+ 		 "\nSi bien sus armas y mÈtodos especÌficos les conceden una amplia variedad de t·cticas, pocos pueden igualar a los guerreros en la destreza de la pura batalla."
+				+ 		 "\nSi bien sus armas y m√©todos espec√≠ficos les conceden una amplia variedad de t√°cticas, pocos pueden igualar a los guerreros en la destreza de la pura batalla."
 				+ 		 "\nPueden optar por una postura defensiva o agresiva en cualqueir batalla.";
 	}
 	
