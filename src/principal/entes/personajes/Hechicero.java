@@ -18,15 +18,16 @@ private Map<String, Hechizo> hechizos = new HashMap<String, Hechizo>();
 		this.agilidad=-3;
 		
 		this.nombre="Hechicero";
-		this.descripcion="\nLos hechiceros son lanzadores de conjuros arcanos que manipulan la energía mágica con imaginación y talento, más que con una disciplina de estudio. "
-				+ 		 "\nNo tienen libros ni mentores ni teorías: sólo un poder en bruto que dirigen a voluntad."
-				+        "\nYa que los hechiceros ganan sus poderes sin pasar por los años de estudio riguroso, tienen más tiempo para aprender habilidades de lucha y son competentes con las armas sencillas";
+		this.descripcion="\nLos hechiceros son lanzadores de conjuros arcanos que manipulan la energÃ­a mÃ¡gica con imaginaciÃ³n y talento, mÃ¡s que con una disciplina de estudio. "
+				+ 		 "\nNo tienen libros ni mentores ni teorÃ­as: sÃ³lo un poder en bruto que dirigen a voluntad."
+				+        "\nYa que los hechiceros ganan sus poderes sin pasar por los aÃ±os de estudio riguroso, tienen mÃ¡s tiempo para aprender habilidades de lucha y son competentes con las armas sencillas";
 	}
 	
 	
 	public void agregarHechizo(String conjuro, Hechizo hechizo) {
 		
 		this.hechizos.put(conjuro, hechizo);
+		this.habilidades.add(conjuro);
 	}
 	
 	public int getCantidadDeHechizos() {
@@ -45,7 +46,6 @@ private Map<String, Hechizo> hechizos = new HashMap<String, Hechizo>();
 		}
 		else
 		{
-			System.out.println("No se posee la magia necesaria para realizar el hechizo");
 			return false;
 		}
 		
@@ -62,5 +62,17 @@ private Map<String, Hechizo> hechizos = new HashMap<String, Hechizo>();
 	public int obtenerPuntosDeDefensa() {
 		
 		return 6;
+	}
+	
+	public void restaurarMagia(){
+		this.magia= this.magiaTot;
+	}
+	
+	public void restaurarMagia(int valor){
+		if (this.magia+valor <= this.magiaTot) {
+			this.magia+= valor;
+		}
+		else
+			this.magia=this.magiaTot;
 	}
 }
