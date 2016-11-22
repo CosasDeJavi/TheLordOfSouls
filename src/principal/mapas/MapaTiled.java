@@ -2,6 +2,8 @@ package principal.mapas;
 
 import principal.Constantes;
 import principal.ElementosPrincipales;
+import principal.interfaz_usuario.Combate;
+import principal.control.GestorControles;
 import principal.entes.enemigos.Enemigo;
 import principal.entes.enemigos.RegistroEnemigos;
 import principal.herramientas.DibujoDebug;
@@ -10,6 +12,7 @@ import principal.items.objetos.ObjetoTiled;
 import principal.items.objetos.RegistroObjetos;
 import principal.sprites.HojaSprites;
 import principal.sprites.Sprite;
+import principal.items.equipados.RegistroDeAlmas;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -38,6 +41,7 @@ public class MapaTiled {
 	
 	private ArrayList <ObjetoTiled> objetosMapa;
 	private ArrayList <Enemigo> enemigosMapa;
+	private Rectangle reestauracion;
 	
 	public MapaTiled(final String ruta){
 		
@@ -62,6 +66,11 @@ public class MapaTiled {
 				
 				anchoMapaEnTiles = obtenerIntDesdeJSON(globalJSON, "width");
 				altoMapaEnTiles = obtenerIntDesdeJSON(globalJSON, "height");
+				
+				//PUNTO DE REESTAURACION//
+				JSONObject reestauracion = obtenerObjetoJSON(globalJSON.get("punto reestauracion").toString());
+				
+				this.reestauracion= new Rectangle(obtenerIntDesdeJSON(reestauracion, "x"), obtenerIntDesdeJSON(reestauracion, "y"), obtenerIntDesdeJSON(reestauracion, "width"), obtenerIntDesdeJSON(reestauracion, "height"));
 				
 				//PUNTO INICIAL//
 				JSONObject puntoInicial = obtenerObjetoJSON(globalJSON.get("start").toString());
@@ -226,6 +235,8 @@ public class MapaTiled {
 	}
 	
 	public void actualizar(){
+		
+		puntoRestauracion();
 		actualizarAreasColisiones();
 		actualizarRecogidaObjetos();
 		actualizarEnemigos();
@@ -266,10 +277,15 @@ public class MapaTiled {
                     switch (objetoActual.obtenerObjeto().obtenerId()) {
 					case 0: //si la id del objeto es 0 eso significa que es un CuraSalud
 					{
+						ElementosPrincipales.jugador.p.serCurado(+20);
 						//se accede al metodo serCurado del personaje del Jugador//
 					}break;
 					case 1: //si la id del objeto es 1 eso significa que es un RecuperaMagia
 					{
+						if (ElementosPrincipales.jugador.p.getCasta().getNombre() == "Hechicero") {
+							ElementosPrincipales.jugador.p.getCasta().getHechicero().restaurarMagia(+20);
+						}
+						
 						//se accede al metodo recuperaMagia del personaje//
 					}break;
 					
@@ -281,24 +297,59 @@ public class MapaTiled {
 	}
 	
 	private void actualizarEnemigos() {
-		if (!objetosMapa.isEmpty()) {
+		if (!enemigosMapa.isEmpty()) {
             final Rectangle areaJugador = new Rectangle(ElementosPrincipales.jugador.obtenerPosicionXInt(),
                     ElementosPrincipales.jugador.obtenerPosicionYInt(), Constantes.ANCHO_SPRITE, Constantes.ALTO_SPRITE);
 
-            for (int i = 0; i < objetosMapa.size(); i++) {
-                final ObjetoTiled objetoActual = objetosMapa.get(i);
+            for (int i = 0; i < enemigosMapa.size(); i++) {
+                final Enemigo enemigoActual = enemigosMapa.get(i);
 
-                final Rectangle posicionObjetoActual = new Rectangle(
-                        objetoActual.obtenerPosicion().x,
-                        objetoActual.obtenerPosicion().y, Constantes.ANCHO_SPRITE,
+                final Rectangle posicionObjetoActual = new Rectangle((int)enemigoActual.obtenerPosicionX(),
+                        (int)enemigoActual.obtenerPosicionY(), Constantes.ANCHO_SPRITE,
                         Constantes.ALTO_SPRITE);
                 
                 if (areaJugador.intersects(posicionObjetoActual)){
-                	//ir a estado de combate//
+                	Combate combate=new Combate(ElementosPrincipales.jugador.p,enemigoActual);
+                	combate.setVisible(true);
+                	GestorControles.teclado.liberarTeclas();
+                	while (combate.isCombatiendo()) {		
+					}
+                	
+                	if (combate.getHuir() == true || (!ElementosPrincipales.jugador.p.estaVivo())) {
+                		ElementosPrincipales.jugador.p.perderItemMasValioso(ElementosPrincipales.jugador.p);
+                		ElementosPrincipales.jugador.establecerPosicionY(puntoInicial.y);
+                		ElementosPrincipales.jugador.establecerPosicionX(puntoInicial.x);
+					}
+                	else
+                	{
+                		ElementosPrincipales.jugador.p=RegistroDeAlmas.asignarAlma(enemigoActual.devolverItem(), ElementosPrincipales.jugador.p);
+                		combate.setVisible(false);
+                    	combate.dispose();
+                		ElementosPrincipales.jugador.p.ganarExperiencia(enemigoActual.devolverExperiencia());
+                		enemigosMapa.remove(i);
+                	}
+                	
+                	ElementosPrincipales.jugador.p.serEnergizadoTotalmente();
+                	
                 }
                 	
             }
 
+		}
+	}
+	
+	public void puntoRestauracion(){
+		 final Rectangle areaJugador = new Rectangle(ElementosPrincipales.jugador.obtenerPosicionXInt(),
+                 ElementosPrincipales.jugador.obtenerPosicionYInt(), Constantes.ANCHO_SPRITE, Constantes.ALTO_SPRITE);
+		 
+		if (areaJugador.intersects(this.reestauracion)) {
+			ElementosPrincipales.jugador.p.serCuradoTotalmente();
+			ElementosPrincipales.jugador.p.serEnergizadoTotalmente();
+			
+			if (ElementosPrincipales.jugador.p.getCasta().getNombre() == "Hechicero") {
+				ElementosPrincipales.jugador.p.getCasta().getHechicero().restaurarMagia();
+			}
+			
 		}
 	}
 	
@@ -426,3 +477,4 @@ public class MapaTiled {
 		return new Rectangle(x, y, ancho - Constantes.ANCHO_SPRITE/2, alto - Constantes.ANCHO_SPRITE/2);
 	}
 }
+
