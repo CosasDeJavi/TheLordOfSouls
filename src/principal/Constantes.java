@@ -39,8 +39,10 @@ public class Constantes {
 	public static String RUTA_MENU_LOGIN = "/imagenes/hojasMenus/The Lord of Souls 3.png";
 	public static String RUTA_SELECCION_MAPA = "/imagenes/hojasMenus/mapa1.png";
 	public static String RUTA_SELECCION_PERSONAJE = "/imagenes/hojasMenus/pergamino.png";
+	public static String RUTA_IMAGEN_DE_COMBATE = "/imagenes/hojasEnemigos/";
 	
 	public boolean EMPEZAR_JUEGO=false;
 
 //	public static Font FUENTE_PIXEL = CargadorRecursos.cargarFuente("/fuentes/px10.ttf");
 }
+
