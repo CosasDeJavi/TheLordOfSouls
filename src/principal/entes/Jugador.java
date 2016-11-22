@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import principal.Constantes;
 import principal.ElementosPrincipales;
 import principal.control.GestorControles;
+import principal.entes.personajes.Engorgio;
 import principal.entes.personajes.Especialidad;
 import principal.entes.personajes.Guerrero;
 import principal.entes.personajes.Hechicero;
@@ -54,8 +55,10 @@ public class Jugador {
 
 		enMovimiento = false;
 		p= new Orco("Mujer"); //solo necesario para la prueba estos valores se inicializan solo en la interfaz de crearPersonaje
-		Especialidad c=new Ladron();
+		Especialidad c=new Hechicero();
 		p.setCasta(c);
+		p.setNombrePersonaje("Carlota");
+		p.getCasta().getHechicero().agregarHechizo("Engorgio", new Engorgio());
 		
 		hs = new HojaSprites(Constantes.RUTA_PERSONAJE + p.getCasta().getNombre() + "/" + p.getRaza() + ".png", Constantes.ANCHO_SPRITE, Constantes.ALTO_SPRITE, false);
 
@@ -310,7 +313,7 @@ public class Jugador {
 
 		DibujoDebug.dibujarImagen(g, imagenActual, centroX, centroY);
         
-        DibujoDebug.dibujarString(g, "Personaje",  centroX-10, centroY);
+        DibujoDebug.dibujarString(g, p.getNombrePersonaje(),  centroX-10, centroY);
 	}
 
 	public void establecerPosicionX(double posicionX) {
