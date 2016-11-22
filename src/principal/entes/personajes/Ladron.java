@@ -3,10 +3,13 @@ package principal.entes.personajes;
 public class Ladron extends Especialidad{
 	
 	protected int evasion=5;
-	protected int da�oCritico=0;
+	protected int dañoCritico=0;
 	private int anularDefensa=0;
 	
 	public Ladron(){
+		
+		this.habilidades.add("Daño Critico");
+		this.habilidades.add("Salir Daño Critico");
 		
 		this.energia=-3;
 		this.salud=3;
@@ -15,27 +18,25 @@ public class Ladron extends Especialidad{
 		this.nombre="Ladron";
 		
 		this.descripcion="\nAgilidad y riesgo son ambos excelentes rasgos para el ladron, y su confluencia puede crear espectaculares proezas de acrobacia."
-				+ "\nCuando pilla a su oponente en un momento en que sea incapaz de defenderse eficazmente de su ataque, el ladron puede alcanzar un punto vital para infligir mayor da�o."
-				+ "\nAdemas, el ladron puede echar a rodar para apartarse de un golpe mortal y hacer que �ste le inflija menor da�o";
+				+ "\nCuando pilla a su oponente en un momento en que sea incapaz de defenderse eficazmente de su ataque, el ladron puede alcanzar un punto vital para infligir mayor daño."
+				+ "\nAdemas, el ladron puede echar a rodar para apartarse de un golpe mortal y hacer que éste le inflija menor daño";
 	}
 	
-	public void da�oCritico(int anularDefensa){
+	public void dañoCritico(int anularDefensa){
 		
-		this.da�oCritico=20;
+		this.dañoCritico=20;
 		this.anularDefensa=anularDefensa;
 	}
 	
-	public void salirDa�oCritico(){
+	public void salirDañoCritico(){
 		
-		this.da�oCritico=0;
+		this.dañoCritico=0;
 	}
 	
 	@Override
 	public int calcularPuntosDeAtaque() {
 		
-		int aux = ((int)(Math.random()*da�oCritico));
-		
-		System.out.println("\nEl da�o critico es de: " + aux);
+		int aux = ((int)(Math.random()*dañoCritico));
 		
 		return (15 + aux);
 	}
@@ -43,10 +44,11 @@ public class Ladron extends Especialidad{
 	@Override
 	public int obtenerPuntosDeDefensa() {
 		
-		if(this.da�oCritico == 0)
+		if(this.dañoCritico == 0)
 			return (-6 + ((int)(Math.random()*evasion))); //la idea es que evasion se incremente con cada subida de nivel//
 		else
-			return (-this.anularDefensa); //le deja la defensa en cero por estar en modo da�oCritico//
+			return (-this.anularDefensa); //le deja la defensa en cero por estar en modo dañoCritico//
 	}
 	
 }
+
