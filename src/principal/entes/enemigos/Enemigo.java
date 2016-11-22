@@ -9,6 +9,7 @@ import principal.ElementosPrincipales;
 import principal.entes.personajes.Atacable;
 import principal.entes.personajes.Personaje;
 import principal.herramientas.DibujoDebug;
+import principal.sprites.HojaSprites;
 
 
 public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
@@ -25,12 +26,12 @@ public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
 	protected int altura=1;
 	private double posicionX;
     private double posicionY;
+    protected HojaSprites hojaSprites;
 	
 	public final boolean atacar(Atacable atacado) {
 		
 		if(atacado.estaVivo()){
 			if(puedeAtacar()){
-				System.out.println("El enemigo realiza un ataque");
 				atacado.serAtacado(calcularPuntosDeAtaque()); //modificado//
 				energia-= fatiga ; //sugiero metodo aparte para calcular la energia que gasta//
 			}
@@ -50,7 +51,7 @@ public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
 		return true;
 	}
 	
-	protected boolean puedeAtacar() {
+	public boolean puedeAtacar() {
 		return energia >= fatiga;
 	}
 	
@@ -108,6 +109,10 @@ public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
         return posicionY;
     }
     
+    public String getNombre(){
+    	return nombre;
+    }
+    
     public void establecerPosicion(final double posicionX, final double posicionY) {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
@@ -155,5 +160,4 @@ public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
