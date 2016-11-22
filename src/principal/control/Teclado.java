@@ -51,6 +51,14 @@ public class Teclado implements KeyListener {
 			break;
 		}
 	}
+	
+	public void liberarTeclas(){
+		arriba.teclaLiberada();
+		abajo.teclaLiberada();
+		izquierda.teclaLiberada();
+		derecha.teclaLiberada();
+	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
