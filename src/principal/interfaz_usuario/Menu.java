@@ -22,6 +22,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 
 	public Menu() {
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 280);
@@ -30,7 +31,7 @@ public class Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Elegir Otro Mapa");
+		/*JButton btnNewButton = new JButton("Elegir Otro Mapa");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ElegirMapa();
@@ -40,7 +41,8 @@ public class Menu extends JFrame {
 		btnNewButton.setFont(new Font("Harrington", Font.BOLD, 20));
 		btnNewButton.setBounds(86, 76, 205, 23);
 		contentPane.add(btnNewButton);
-		
+		*/
+		/*
 		JButton btnNewButton_1 = new JButton("Cambiar de Personaje");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,7 +53,7 @@ public class Menu extends JFrame {
 		btnNewButton_1.setFont(new Font("Harrington", Font.BOLD, 20));
 		btnNewButton_1.setBounds(63, 117, 250, 23);
 		contentPane.add(btnNewButton_1);
-		
+		*/
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

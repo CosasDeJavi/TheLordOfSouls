@@ -223,8 +223,8 @@ public class Combate extends JFrame {
 				turno2 = true;
 				turno1 = false;
 					
-				lblEnergiaTotal.setText(p.getEnergia()+"/"+p.getEnergiaTot());
-				barraEnergia.setValue(p.getEnergia());
+			//	lblEnergiaTotal.setText(p.getEnergia()+"/"+p.getEnergiaTot());
+				//barraEnergia.setValue(p.getEnergia());
 				
 				if (combatiendo) {
 					
@@ -389,9 +389,9 @@ public class Combate extends JFrame {
 		case "Ladron":
 		{	
 			if((String)comboBox.getSelectedItem() == "Daño Critico")
-				per.getCasta().getLadron().dañoCritico(per.getDefensa());
+				per.getCasta().getLadron().danioCritico(per.getDefensa());
 			else
-				per.getCasta().getLadron().salirDañoCritico();
+				per.getCasta().getLadron().salirDanioCritico();
 			
 			return per.atacar(ene);
 			

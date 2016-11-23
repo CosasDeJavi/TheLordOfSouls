@@ -222,7 +222,9 @@ public class MapaTiled {
 					
 					Point posicionEnemigo = new Point(xEnemigo, yEnemigo);
 					Enemigo enemigo = RegistroEnemigos.obtenerEnemigo(idEnemigo); 
+				
 					enemigo.establecerPosicion(posicionEnemigo.x, posicionEnemigo.y);
+
 					enemigosMapa.add(enemigo);
 				}
 				

@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import principal.Constantes;
+import principal.GestorPrincipal;
 import principal.peticiones.*;
 
 public class ServerThread extends Thread{
@@ -58,6 +60,23 @@ public class ServerThread extends Thread{
 				PeticionRegistro petReg = (PeticionRegistro) mjeIn.getObj();
 				try {
 					oos.writeObject(new Mensaje(sv.getConexionBD().registro(petReg.getUsuario(), new String(petReg.getPassword()), petReg.getEmail()),null));
+					oos.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case CodigoPeticion.LEVANTAR_MAPA:
+				PeticionLevantarMapa petMap = (PeticionLevantarMapa) mjeIn.getObj();
+				try {
+					try{
+						GestorPrincipal gp=new GestorPrincipal(petMap.getTitulo(),petMap.getAncho(), petMap.getAlto());
+						gp.iniciarJuego();
+						gp.iniciarBuclePrincipal();
+						oos.writeObject(new Mensaje(CodigoPeticion.LEVANTAR_MAPA_CORRECTO ,null));
+					}catch(Exception e){
+						oos.writeObject(new Mensaje(CodigoPeticion.LEVANTAR_MAPA_INCORRECTO  ,null));
+					}
 					oos.flush();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

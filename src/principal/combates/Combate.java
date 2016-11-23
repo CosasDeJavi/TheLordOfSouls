@@ -551,7 +551,7 @@ public class Combate {
 			}while(opc != 1 && opc != 0);
 			
 			if(opc == 1)
-				p.getCasta().getLadron().dañoCritico(p.getDefensa()); //Por ahora solo tiene daño critico//
+				p.getCasta().getLadron().danioCritico(p.getDefensa()); //Por ahora solo tiene daño critico//
 			
 			return p.atacar(e);
 			

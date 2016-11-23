@@ -66,12 +66,12 @@ public abstract class Personaje implements Atacable,Comparable < Personaje >{
 		return true;
 	}
 	
-	public void serAtacado(int daño){
+	public void serAtacado(int danio){
 		
-		if((daño - obtenerPuntosDeDefensa()) > 0)
-			this.salud-=(daño - obtenerPuntosDeDefensa()); //el daño de reduce en base a la defensa del personaje//
+		if((danio - obtenerPuntosDeDefensa()) > 0)
+			this.salud-=(danio - obtenerPuntosDeDefensa()); //el danio de reduce en base a la defensa del personaje//
 		else
-			this.salud-= 1; //daño por defecto//cuando la defensa supera a el daño//
+			this.salud-= 1; //danio por defecto//cuando la defensa supera a el danio//
 	}
 	
 	public void serCuradoTotalmente(){

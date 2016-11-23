@@ -19,8 +19,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import principal.Constantes;
+import principal.cs.Cliente;
 import principal.entes.personajes.*;
-
 
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -42,7 +42,7 @@ public class CreacionDePersonaje extends JFrame {
 	private Personaje p;
 	private Especialidad c;
 
-	public CreacionDePersonaje() {
+	public CreacionDePersonaje(final Cliente cliente) {
 		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -323,7 +323,7 @@ public class CreacionDePersonaje extends JFrame {
 				System.out.println(p.toString()); 
 				*/
 				dispose();
-				ElegirMapa elegir = new ElegirMapa();
+				ElegirMapa elegir = new ElegirMapa(cliente);
 			}
 			
 				

@@ -39,7 +39,7 @@ public class Login extends JFrame {
 	
 
 	public  Login() {
-		this.cliente = new Cliente("192.168.1.2"); 
+		this.cliente = new Cliente("10.11.4.19"); 
 		
 		setTitle("Iniciar Sesi\u00F3n");
 		
@@ -77,13 +77,11 @@ public class Login extends JFrame {
 				String usuario = usuarioField.getText();
 				char[] password = passwordField.getPassword();		//passwordField.getPassword() devuelve un arreglo de chars, después lo pasaremos a String
 				PeticionLogueo petLog = new PeticionLogueo(usuario, password);
-				
-				boolean pasar=true;
-		
+						
 				if(cliente.loguearse(petLog) == CodigoPeticion.LOGEO_CORRECTO ) {
 					JOptionPane.showMessageDialog(null, "Login correcto.");
 					dispose();
-					CreacionDePersonaje creacion=new CreacionDePersonaje();
+					CreacionDePersonaje creacion=new CreacionDePersonaje(cliente);
 					
 				}
 				else{

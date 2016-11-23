@@ -92,6 +92,7 @@ public class GestorPrincipal extends JFrame {
 				referenciaContador= System.nanoTime();
 			}
 		}
+		
 	}
 	
 	private void actualizar(){

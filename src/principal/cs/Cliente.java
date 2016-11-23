@@ -98,5 +98,23 @@ public class Cliente{
 		}
 	}
 	
+	public int levantarMapa(PeticionLevantarMapa petMapa) {
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.LEVANTAR_MAPA,petMapa));
+			oos.flush();
+		} catch (Exception e) {
+			System.out.println("Error en el registro al enviar petición por IOException");
+		}
+		try {
+			Mensaje respuestaSv = (Mensaje) ois.readObject();
+			return respuestaSv.getCodigo();
+		} catch (ClassNotFoundException e) {
+			System.out.println("Error en el registro al recibir respuesta por ClassNotFound");
+		} catch (IOException e) {
+			System.out.println("Error en el login al recibir respuesta por IOException");
+		}
+		return CodigoPeticion.LEVANTAR_MAPA_INCORRECTO;
+	}
+	
 }
 	

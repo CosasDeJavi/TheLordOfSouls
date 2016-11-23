@@ -4,18 +4,27 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import principal.Constantes;
 import principal.GestorPrincipal;
+import principal.cs.Cliente;
+import principal.peticiones.CodigoPeticion;
+import principal.peticiones.PeticionLevantarMapa;
 
 import javax.swing.JLabel;
+
 import java.awt.Color;
+
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -28,7 +37,7 @@ public class ElegirMapa extends JFrame  {
 	private final JLabel lblNewLabel = new JLabel("");
 	private JLabel lblSeleccionaElMapa;
 
-	public  ElegirMapa() {
+	public  ElegirMapa(final Cliente cliente) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -54,10 +63,10 @@ public class ElegirMapa extends JFrame  {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				GestorPrincipal gp=new GestorPrincipal("TheLordOfSouls", Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
-				gp.iniciarJuego();
-				gp.iniciarBuclePrincipal();
-		
+				PeticionLevantarMapa petMap = new PeticionLevantarMapa("TheLordOfSouls", Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
+				if(cliente.levantarMapa(petMap)==CodigoPeticion.LEVANTAR_MAPA_INCORRECTO)
+					JOptionPane.showMessageDialog(null, "No se pudo levantar el mapa.");
+				
 			}
 		});
 		btnNewButton.setBackground(Color.WHITE);

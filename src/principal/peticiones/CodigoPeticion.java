@@ -23,4 +23,8 @@ public class CodigoPeticion {
 		public static final int AGREGAR_JUGADOR = 4;
 		public static final int AGREGAR_JUGADOR_CORRECTO = 41;
 		public static final int AGREGAR_JUGADOR_INCORRECTO = 40;
+		
+		public static final int LEVANTAR_MAPA = 5;
+		public static final int LEVANTAR_MAPA_CORRECTO = 51;
+		public static final int LEVANTAR_MAPA_INCORRECTO = 50;
 }

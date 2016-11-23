@@ -10,7 +10,7 @@ int ataquesRecibidos;
 	}
 
 	@Override
-	protected boolean puedeAtacar() {
+	public boolean puedeAtacar() {
 		return energia >= calcularPuntosDeAtaque();
 	}
 
