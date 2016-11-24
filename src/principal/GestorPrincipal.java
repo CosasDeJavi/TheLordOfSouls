@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 
+import principal.cs.Cliente;
 import principal.graficos.SuperFicieDibujo;
 import principal.graficos.Ventana;
 import principal.mapas.MapaTiled;
@@ -16,6 +17,7 @@ public class GestorPrincipal extends JFrame {
 	private String titulo;
 	private int ancho;
 	private int alto;
+	private Cliente cliente;
 	
 	private SuperFicieDibujo sd;
 	private Ventana ventana;
@@ -24,10 +26,11 @@ public class GestorPrincipal extends JFrame {
 
 	Login log;
 	
-	public GestorPrincipal(final String titulo, final int ancho, final int alto){
+	public GestorPrincipal(final String titulo, final int ancho, final int alto, Cliente c){
 		this.titulo = titulo;
 		this.ancho = ancho;
 		this.alto = alto;
+		this.cliente = c;
 	}
 	
 	
@@ -44,7 +47,7 @@ public class GestorPrincipal extends JFrame {
 	}
 	public void inicializar() {
 		sd=new SuperFicieDibujo(ancho,alto);
-		ventana= new Ventana(titulo, sd);
+		ventana= new Ventana(titulo, sd, this.cliente);
 		ge= new GestorEstados();
 		
 	}

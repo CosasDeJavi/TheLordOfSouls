@@ -7,6 +7,8 @@ import java.awt.event.WindowFocusListener;
 
 import javax.swing.JFrame;
 
+import principal.cs.Cliente;
+
 public class Ventana extends JFrame implements WindowFocusListener{
 
 	/**
@@ -15,9 +17,11 @@ public class Ventana extends JFrame implements WindowFocusListener{
 	private static final long serialVersionUID = 5979421777239930009L;
 
 	private String titulo;
+	private Cliente cliente;
 	
-	public Ventana(String titulo, SuperFicieDibujo sd){
+	public Ventana(String titulo, SuperFicieDibujo sd, Cliente c){
 		this.titulo = titulo;
+		this.cliente = c;
 		
 		configurarVentana(sd);
 	}

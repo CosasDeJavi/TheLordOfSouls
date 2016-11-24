@@ -39,7 +39,7 @@ public class Login extends JFrame {
 	
 
 	public  Login() {
-		this.cliente = new Cliente("10.11.4.19"); 
+		this.cliente = new Cliente("192.168.56.1"); 
 		
 		setTitle("Iniciar Sesi\u00F3n");
 		

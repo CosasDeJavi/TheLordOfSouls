@@ -66,7 +66,9 @@ public class ServerThread extends Thread{
 					e.printStackTrace();
 				}
 				break;
-			case CodigoPeticion.LEVANTAR_MAPA:
+				
+				/*
+			 	case CodigoPeticion.LEVANTAR_MAPA:
 				PeticionLevantarMapa petMap = (PeticionLevantarMapa) mjeIn.getObj();
 				try {
 					try{
@@ -82,6 +84,8 @@ public class ServerThread extends Thread{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				break;
+				*/
 			}
 		}
 	}

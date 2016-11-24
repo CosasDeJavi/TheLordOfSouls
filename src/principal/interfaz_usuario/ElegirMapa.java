@@ -63,10 +63,7 @@ public class ElegirMapa extends JFrame  {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				PeticionLevantarMapa petMap = new PeticionLevantarMapa("TheLordOfSouls", Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
-				if(cliente.levantarMapa(petMap)==CodigoPeticion.LEVANTAR_MAPA_INCORRECTO)
-					JOptionPane.showMessageDialog(null, "No se pudo levantar el mapa.");
-				
+				cliente.levantarMapa("TheLordOfSouls",Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
 			}
 		});
 		btnNewButton.setBackground(Color.WHITE);

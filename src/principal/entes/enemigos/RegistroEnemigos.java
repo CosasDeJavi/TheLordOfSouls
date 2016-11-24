@@ -8,6 +8,9 @@ public class RegistroEnemigos {
             case 1:
                 enemigo = new Goblin();
                 break;
+            case 2:
+            	enemigo = new Zombie();
+            	break;
         }
 
         return enemigo;

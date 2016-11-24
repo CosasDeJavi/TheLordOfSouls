@@ -52,7 +52,7 @@ public abstract class Enemigo implements Atacable, Comparable < Enemigo >{
 	}
 	
 	public boolean puedeAtacar() {
-		return energia >= fatiga;
+		return (energia >= fatiga && this.estaVivo());
 	}
 	
 	protected abstract int calcularPuntosDeAtaque();
