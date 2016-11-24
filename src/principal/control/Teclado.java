@@ -12,9 +12,6 @@ public class Teclado implements KeyListener {
 	public Tecla izquierda = new Tecla();
 	public Tecla derecha = new Tecla();
 
-	public boolean recogiendo = false;
-	public boolean debug = false;
-
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:

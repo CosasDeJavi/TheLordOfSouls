@@ -30,7 +30,7 @@ int ataquesRecibidos;
 
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		return 10 + ataquesRecibidos;
+		return 30 + ataquesRecibidos;
 	}
 
 	@Override

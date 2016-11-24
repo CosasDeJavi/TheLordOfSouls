@@ -47,18 +47,20 @@ public class Jugador {
 	private int animacion;
 	private int estado;
 
-	public Jugador() {
+	public Jugador(Personaje per) {
+		
+		p=per;
 		posicionX = ElementosPrincipales.mapa.obtenerPosicionInicial().getX();
 		posicionY = ElementosPrincipales.mapa.obtenerPosicionInicial().getY();
 
 		direccion = 1;
 
 		enMovimiento = false;
-		p= new Orco("Mujer"); //solo necesario para la prueba estos valores se inicializan solo en la interfaz de crearPersonaje
-		Especialidad c=new Hechicero();
-		p.setCasta(c);
-		p.setNombrePersonaje("Carlota");
-		p.getCasta().getHechicero().agregarHechizo("Engorgio", new Engorgio());
+//		p= new Orco("Mujer"); //solo necesario para la prueba estos valores se inicializan solo en la interfaz de crearPersonaje
+//		Especialidad c=new Hechicero();
+//		p.setCasta(c);
+//		p.setNombrePersonaje("Carlota");
+//		p.getCasta().getHechicero().agregarHechizo("Engorgio", new Engorgio());
 		
 		hs = new HojaSprites(Constantes.RUTA_PERSONAJE + p.getCasta().getNombre() + "/" + p.getRaza() + ".png", Constantes.ANCHO_SPRITE, Constantes.ALTO_SPRITE, false);
 
@@ -102,10 +104,12 @@ public class Jugador {
 		final int velocidadY = evaluarVelocidadY();
 
 		if (velocidadX == 0 && velocidadY == 0) {
+			
 			return;
 		}
 
 		if ((velocidadX != 0 && velocidadY == 0) || (velocidadX == 0 && velocidadY != 0)) {
+			
 			mover(velocidadX, velocidadY);
 		} else {
 			// izquierda y arriba
@@ -149,7 +153,7 @@ public class Jugador {
 
 	private int evaluarVelocidadX() {
 		int velocidadX = 0;
-
+		
 		if (GestorControles.teclado.izquierda.estaPulsada() && !GestorControles.teclado.derecha.estaPulsada()) {
 			velocidadX = -1;
 		} else if (GestorControles.teclado.derecha.estaPulsada() && !GestorControles.teclado.izquierda.estaPulsada()) {

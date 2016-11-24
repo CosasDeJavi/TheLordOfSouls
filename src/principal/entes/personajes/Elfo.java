@@ -2,8 +2,8 @@ package principal.entes.personajes;
 
 public class Elfo extends Personaje{
 	
-	public Elfo(){
-		
+	public Elfo(String sexo){
+		 this.sexo=sexo;
 		 this.fuerza= 5;
 		 this.fatiga=10;
 		 this.energiaTot=60;

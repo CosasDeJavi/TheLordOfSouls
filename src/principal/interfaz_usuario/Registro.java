@@ -101,6 +101,7 @@ public class Registro extends JFrame {
 					int respuesta = ventLogin.getCliente().registrarse(petReg);
 					if(respuesta == CodigoPeticion.REGISTRO_CORRECTO) {
 						JOptionPane.showMessageDialog(null, "Registrado correctamente.");
+						dispose();
 					}
 					else{
 						if(respuesta == CodigoPeticion.REGISTRO_INCORRECTO_USER_YA_EXISTE)

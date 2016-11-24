@@ -314,7 +314,8 @@ public class MapaTiled {
                 	Combate combate=new Combate(ElementosPrincipales.jugador.p,enemigoActual);
                 	combate.setVisible(true);
                 	GestorControles.teclado.liberarTeclas();
-                	while (combate.isCombatiendo()) {		
+                	while (combate.isCombatiendo()) {
+                		System.out.println(""); //si sacan este syso se rompe todo!!! no es joda//		
 					}
                 	
                 	if (combate.getHuir() == true || (!ElementosPrincipales.jugador.p.estaVivo())) {

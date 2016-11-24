@@ -1,5 +1,6 @@
 package principal.cs;
 
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -101,7 +102,7 @@ public class Cliente{
 	}
 	
 	public void levantarMapa(String titulo, final int ancho, final int alto) {
-		GestorPrincipal gp=new GestorPrincipal("TheLordOfSouls",Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO, this);
+		GestorPrincipal gp=new GestorPrincipal(titulo,ancho, alto, this);
 		gp.iniciarJuego();
 		gp.iniciarBuclePrincipal();
 	}

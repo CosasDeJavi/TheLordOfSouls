@@ -27,7 +27,7 @@ public class Ventana extends JFrame implements WindowFocusListener{
 	}
 
 	private void configurarVentana(final SuperFicieDibujo sd) {
-
+		
 		setTitle(titulo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

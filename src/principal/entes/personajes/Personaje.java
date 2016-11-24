@@ -79,7 +79,11 @@ public abstract class Personaje implements Atacable,Comparable < Personaje >{
 	}
 	
 	public void serCurado(int cura){ //se usaria cuando el Hechicero cura o cuando se este en la posada descansando//
-		this.salud+= cura;
+		if (cura + this.salud >= this.saludTot) {
+			this.salud= saludTot;
+		}
+		else
+			this.salud+= cura;
 	}
 	
 	public void serEnergizadoTotalmente(){ //se usaria al finalizar cada batalla//

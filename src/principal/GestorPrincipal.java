@@ -117,4 +117,5 @@ public class GestorPrincipal extends JFrame {
 		gp.iniciarJuego();
 		gp.iniciarBuclePrincipal();
 	}*/
+
 }

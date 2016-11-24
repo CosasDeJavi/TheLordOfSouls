@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import principal.Constantes;
+import principal.ElementosPrincipales;
 import principal.cs.Cliente;
 import principal.entes.personajes.*;
 
@@ -142,14 +143,6 @@ public class CreacionDePersonaje extends JFrame {
 						
 						p.setCasta(c);
 						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-									//traigo el sprite del Orco Hechicero//
-						}
-						else
-						{
-							//traigo el sprite de la Orca Hechicera//
-						}
-						
 						break;
 						
 					}
@@ -159,14 +152,6 @@ public class CreacionDePersonaje extends JFrame {
 						c=new Ladron();
 						
 						p.setCasta(c);
-						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Orco Ladron//
-						}
-						else
-						{
-							//traigo el sprite de la Orca Ladron//
-						}
 								
 						break;
 					}
@@ -177,14 +162,6 @@ public class CreacionDePersonaje extends JFrame {
 						
 						p.setCasta(c);
 						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Orco Guerrero//
-						}
-						else
-						{
-							//traigo el sprite de la Orca Guerrero//
-						}
-								
 						break;
 					}
 					
@@ -195,7 +172,7 @@ public class CreacionDePersonaje extends JFrame {
 							
 				case "Humano":
 				{
-					p=new Humano();
+					p=new Humano(String.valueOf(sexo));
 					p.setNombrePersonaje(textField.getText());
 					switch ((cadena=String.valueOf(casta))) {
 					
@@ -204,14 +181,6 @@ public class CreacionDePersonaje extends JFrame {
 						c=new Hechicero();
 								
 						p.setCasta(c);
-						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-									//traigo el sprite del Humano Hechicero//
-						}
-						else
-						{
-							//traigo el sprite de la Humana Hechicera//
-						}
 								
 						break;
 					}
@@ -221,14 +190,6 @@ public class CreacionDePersonaje extends JFrame {
 						c=new Ladron();
 						
 						p.setCasta(c);
-						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Humano Ladron//
-						}
-						else
-						{
-							//traigo el sprite de la Humana Ladron//
-						}
 								
 						break;
 					}
@@ -238,14 +199,6 @@ public class CreacionDePersonaje extends JFrame {
 						c=new Guerrero();
 						
 						p.setCasta(c);
-						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Humano Guerrero//
-						}
-						else
-						{
-							//traigo el sprite de la Humana Guerrero//
-						}
 								
 						break;
 					}
@@ -257,7 +210,7 @@ public class CreacionDePersonaje extends JFrame {
 					
 				case "Elfo":
 				{
-					p=new Elfo();
+					p=new Elfo(String.valueOf(sexo));
 					p.setNombrePersonaje(textField.getText());
 					
 					switch ((cadena=String.valueOf(casta))) {
@@ -268,14 +221,6 @@ public class CreacionDePersonaje extends JFrame {
 							
 						p.setCasta(c);
 						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-									//traigo el sprite del Elfo Hechicero//
-						}
-						else
-						{
-							//traigo el sprite de la Elfa Hechicera//
-						}
-								
 						break;
 					}
 							
@@ -285,14 +230,6 @@ public class CreacionDePersonaje extends JFrame {
 						
 						p.setCasta(c);
 						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Elfo Ladron//
-						}
-						else
-						{
-							//traigo el sprite de la Elfa Ladron//
-						}
-								
 						break;
 					}
 							
@@ -302,14 +239,6 @@ public class CreacionDePersonaje extends JFrame {
 						
 						p.setCasta(c);
 						
-						if ((cadena=String.valueOf(sexo)) == "Hombre") {
-							//traigo el sprite del Elfo Guerrero//
-						}
-						else
-						{
-							//traigo el sprite de la Elfa Guerrero//
-						}
-								
 						break;
 					}
 					
@@ -318,10 +247,9 @@ public class CreacionDePersonaje extends JFrame {
 					break;
 				}
 				}
-				/*
+				
 				p.bonificacionDeCasta();
-				System.out.println(p.toString()); 
-				*/
+				ElementosPrincipales.crearJugador(p);
 				dispose();
 				ElegirMapa elegir = new ElegirMapa(cliente);
 			}

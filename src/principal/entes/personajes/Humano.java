@@ -2,8 +2,9 @@ package principal.entes.personajes;
 
 public class Humano extends Personaje{
 	
-	public Humano(){
+	public Humano(String sexo){
 		
+		 this.sexo=sexo;
 		 this.fuerza= 7;
 		 this.fatiga=12;
 		 this.energiaTot=50;

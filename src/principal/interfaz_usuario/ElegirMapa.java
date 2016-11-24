@@ -60,11 +60,30 @@ public class ElegirMapa extends JFrame  {
 		contentPane.add(lblMapa);
 		
 		JButton btnNewButton = new JButton("Seleccionar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnNewButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				dispose();
-				cliente.levantarMapa("TheLordOfSouls",Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
-			}
+				
+				 Runnable miRunnable = new Runnable()
+			      {
+			         public void run()
+			         {
+			            try
+			            {
+			            	cliente.levantarMapa("TheLordOfSouls",Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
+			            }
+			            catch (Exception e)
+			            {
+			               e.printStackTrace();
+			            }
+			         }
+			      };
+				 
+			      Thread hilo = new Thread (miRunnable);
+			      hilo.start();
+			 }
 		});
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setForeground(Color.BLUE);
@@ -93,6 +112,5 @@ public class ElegirMapa extends JFrame  {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-
 
 }

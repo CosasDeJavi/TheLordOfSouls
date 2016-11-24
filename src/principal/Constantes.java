@@ -40,6 +40,7 @@ public class Constantes {
 	public static String RUTA_SELECCION_MAPA = "/imagenes/hojasMenus/mapa1.png";
 	public static String RUTA_SELECCION_PERSONAJE = "/imagenes/hojasMenus/pergamino.png";
 	public static String RUTA_IMAGEN_DE_COMBATE = "/imagenes/hojasEnemigos/";
+	public static String RUTA_ARCHIVO_IP = ".\\recursos\\IP.ini";
 	
 	public boolean EMPEZAR_JUEGO=false;
 

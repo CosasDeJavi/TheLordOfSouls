@@ -12,7 +12,10 @@ public class ConGranAlmaOscura extends PersonajeEquipado {
 
 	@Override
 	public int calcularPuntosDeAtaque() {
-		return super.calcularPuntosDeAtaque() - 10;
+		 if(super.calcularPuntosDeAtaque() - 3 < 1)
+		 	return 1;
+		 else
+			return super.calcularPuntosDeAtaque() - 3;
 	}
 	
 }

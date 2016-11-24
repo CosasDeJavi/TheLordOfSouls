@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import principal.Constantes;
+import principal.archivo.Archivo;
 import principal.cs.Cliente;
 import principal.peticiones.CodigoPeticion;
 import principal.peticiones.PeticionLogueo;
@@ -39,7 +40,8 @@ public class Login extends JFrame {
 	
 
 	public  Login() {
-		this.cliente = new Cliente("192.168.56.1"); 
+		Archivo ip = new Archivo();
+		this.cliente = new Cliente(ip.obternerIp()); 
 		
 		setTitle("Iniciar Sesi\u00F3n");
 		
