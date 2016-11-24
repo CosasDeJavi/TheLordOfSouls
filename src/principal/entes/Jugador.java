@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import principal.Constantes;
 import principal.ElementosPrincipales;
 import principal.control.GestorControles;
+import principal.cs.Cliente;
 import principal.entes.personajes.Engorgio;
 import principal.entes.personajes.Especialidad;
 import principal.entes.personajes.Guerrero;
@@ -22,6 +23,7 @@ public class Jugador {
 	private double posicionX;
 	private double posicionY;
 	public Personaje p; //un jugador tendra un personaje//
+	private Cliente cliente;
 	private int direccion;
 
 	private double velocidad = 1;
@@ -47,8 +49,8 @@ public class Jugador {
 	private int animacion;
 	private int estado;
 
-	public Jugador(Personaje per) {
-		
+	public Jugador(Personaje per, Cliente cli) {
+		cliente = cli;
 		p=per;
 		posicionX = ElementosPrincipales.mapa.obtenerPosicionInicial().getX();
 		posicionY = ElementosPrincipales.mapa.obtenerPosicionInicial().getY();
@@ -362,5 +364,9 @@ public class Jugador {
     
     public Point obtenerPosicion() {
     	return new Point((int)posicionX, (int)posicionY);
+    }
+    
+    public Cliente getCliente(){
+    	return this.cliente;
     }
 }

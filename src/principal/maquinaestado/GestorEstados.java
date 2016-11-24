@@ -25,7 +25,7 @@ public class GestorEstados {
 	}
 			
 	public void actualizar(){
-		estadoActual.actualizar();
+		estadoActual.actualizar();		//actualiza el GestorJuego que creó en iniciarEstados()
 	}
 	
 	public void dibujar(final Graphics g){

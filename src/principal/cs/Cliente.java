@@ -22,6 +22,7 @@ public class Cliente{
 	private static String respuestaServer;
 	private boolean estaConectado = false;
 	private String nombreUsuario;
+	private ClienThread cliThread;
 
 	
 	
@@ -43,6 +44,8 @@ public class Cliente{
 		} catch (IOException e) {
 			System.out.println("IOException creando OOS en el cliente");
 		}
+		this.cliThread = new ClienThread(ois);
+		this.cliThread.start();
 		estaConectado = true;
 	}
 	
@@ -62,15 +65,8 @@ public class Cliente{
 		} catch (IOException e1) {
 			System.out.println("Error en el login al enviar petición por IOException");
 		}
-		try {
-			Mensaje respuestaSv = (Mensaje) ois.readObject();
-			return respuestaSv.getCodigo();
-		} catch (ClassNotFoundException e) {
-			System.out.println("Error en el login al recibir respuesta por ClassNotFound");
-		} catch (IOException e) {
-			System.out.println("Error en el login al recibir respuesta por IOException");
-		}
-		return CodigoPeticion.LOGEO_INCORRECTO;
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getCodigo();
 	}
 	
 	public int registrarse(PeticionRegistro petReg) {
@@ -80,15 +76,8 @@ public class Cliente{
 		} catch (Exception e) {
 			System.out.println("Error en el registro al enviar petición por IOException");
 		}
-		try {
-			Mensaje respuestaSv = (Mensaje) ois.readObject();
-			return respuestaSv.getCodigo();
-		} catch (ClassNotFoundException e) {
-			System.out.println("Error en el registro al recibir respuesta por ClassNotFound");
-		} catch (IOException e) {
-			System.out.println("Error en el login al recibir respuesta por IOException");
-		}
-		return CodigoPeticion.REGISTRO_INCORRECTO;
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getCodigo();
 	}
 
 
@@ -107,5 +96,20 @@ public class Cliente{
 		gp.iniciarBuclePrincipal();
 	}
 	
+	public Mensaje levantarMensaje(){
+		return this.cliThread.getMensaje();
+	}
+	
+	public int pedirJoinMapa1(){
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.PONER_EN_MAPA_JUGADOR, null));
+			oos.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getCodigo();
+	}
 }
 	

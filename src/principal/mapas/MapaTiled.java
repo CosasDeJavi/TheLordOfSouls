@@ -329,6 +329,7 @@ public class MapaTiled {
                 		combate.setVisible(false);
                     	combate.dispose();
                 		ElementosPrincipales.jugador.p.ganarExperiencia(enemigoActual.devolverExperiencia());
+                		//ElementosPrincipales.jugador.getCliente().
                 		enemigosMapa.remove(i);
                 	}
                 	

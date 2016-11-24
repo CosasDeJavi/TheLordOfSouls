@@ -67,6 +67,19 @@ public class ServerThread extends Thread{
 				}
 				break;
 				
+			case CodigoPeticion.PONER_EN_MAPA_JUGADOR:
+				int aux = this.sv.getListaUsuariosMapa1().size();
+				this.sv.agregarAListaDeMapa1(oos);
+				try {
+					if(this.sv.getListaUsuariosMapa1().size() == aux+1)
+						oos.writeObject(new Mensaje(CodigoPeticion.PONER_EN_MAPA_JUGADOR_CORRECTO,null));
+					else
+						oos.writeObject(new Mensaje(CodigoPeticion.PONER_EN_MAPA_JUGADOR_INCORRECTO,null));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				/*
 			 	case CodigoPeticion.LEVANTAR_MAPA:
 				PeticionLevantarMapa petMap = (PeticionLevantarMapa) mjeIn.getObj();

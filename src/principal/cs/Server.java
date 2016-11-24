@@ -58,5 +58,9 @@ public class Server extends Thread{
 	public static void main(String[] args) {
 		new Server().start();
 	}
+	
+	public void agregarAListaDeMapa1(ObjectOutputStream oos){
+		this.listaUsuariosMapa1.add(oos);
+	}
 }
 

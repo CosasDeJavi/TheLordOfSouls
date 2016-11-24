@@ -249,7 +249,7 @@ public class CreacionDePersonaje extends JFrame {
 				}
 				
 				p.bonificacionDeCasta();
-				ElementosPrincipales.crearJugador(p);
+				ElementosPrincipales.crearJugador(p,cliente);
 				dispose();
 				ElegirMapa elegir = new ElegirMapa(cliente);
 			}
