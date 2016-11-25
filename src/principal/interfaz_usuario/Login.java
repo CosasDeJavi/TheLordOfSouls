@@ -80,16 +80,25 @@ public class Login extends JFrame {
 				char[] password = passwordField.getPassword();		//passwordField.getPassword() devuelve un arreglo de chars, después lo pasaremos a String
 				PeticionLogueo petLog = new PeticionLogueo(usuario, password);
 						
-				if(cliente.loguearse(petLog) == CodigoPeticion.LOGEO_CORRECTO ) {
+				//if(cliente.loguearse(petLog) == CodigoPeticion.LOGUEO_CORRECTO ) { 
+				//ahora trae el id del usuario
+				int id = cliente.loguearse(petLog);
+				if(id == CodigoPeticion.LOGUEO_INCORRECTO)
+					JOptionPane.showMessageDialog(null, "Login fallido.");
+				else{
 					JOptionPane.showMessageDialog(null, "Login correcto.");
+					cliente.setIdUsuario(id);
 					dispose();
 					CreacionDePersonaje creacion=new CreacionDePersonaje(cliente);
 					
 				}
+			}
+			/*
 				else{
 					JOptionPane.showMessageDialog(null, "Login fallido.");	//contemplar luego que alguien quiera loguearse con una cuenta que ya se encuentra logueada
 				}
 			}
+			*/
 		});
 		btnInicioSesion.setFont(new Font("Harrington", Font.PLAIN, 13));
 		btnInicioSesion.setBackground(Color.WHITE);

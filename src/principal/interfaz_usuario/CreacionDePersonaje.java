@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
@@ -22,9 +23,14 @@ import principal.Constantes;
 import principal.ElementosPrincipales;
 import principal.cs.Cliente;
 import principal.entes.personajes.*;
+import principal.peticiones.*;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.awt.event.ActionEvent;
 
 public class CreacionDePersonaje extends JFrame {
@@ -34,14 +40,16 @@ public class CreacionDePersonaje extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField nameField;
 	private final JLabel lblNewLabel_1 = new JLabel("");
 	private JLabel lblNewLabel;
-	private JComboBox seleccionaRaza;
-	private JComboBox seleccionaCasta;
-	private JComboBox seleccionaSexo;
+	private JComboBox<String> seleccionaRaza;
+	private JComboBox<String> seleccionaCasta;
+	private JComboBox<String> seleccionaSexo;
 	private Personaje p;
 	private Especialidad c;
+	private Map<Integer,String> razasMap;
+	private Map<Integer,String> castasMap;
 
 	public CreacionDePersonaje(final Cliente cliente) {
 		setBackground(Color.BLACK);
@@ -61,37 +69,68 @@ public class CreacionDePersonaje extends JFrame {
 		lblNewLabel.setToolTipText("hola");
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setForeground(Color.RED);
-		textField.setFont(new Font("Harrington", Font.BOLD, 15));
-		textField.setBounds(160, 110, 186, 23);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		nameField = new JTextField();
+		nameField.setForeground(Color.RED);
+		nameField.setFont(new Font("Harrington", Font.BOLD, 15));
+		nameField.setBounds(160, 110, 186, 23);
+		contentPane.add(nameField);
+		nameField.setColumns(10);
 		
-		seleccionaRaza = new JComboBox();
+		seleccionaRaza = new JComboBox<String>();
 		seleccionaRaza.setBackground(Color.WHITE);
 		seleccionaRaza.setForeground(Color.RED);
 		seleccionaRaza.setToolTipText("");
-		seleccionaRaza.setModel(new DefaultComboBoxModel(new String[] {"Humano", "Elfo", "Orco"}));
+		
+		try {
+			Object obj = cliente.listarRazas();
+			 razasMap = (Map<Integer,String>) obj;
+			 if(!razasMap.isEmpty()){
+					JOptionPane.showMessageDialog(null, "Listado correctamente.");
+					for (Integer key : razasMap.keySet()) {
+						seleccionaRaza.addItem((String)razasMap.get(key));
+					}
+				}
+			else
+				JOptionPane.showMessageDialog(null, "Listado fallido.");
+		}catch (Exception ex) {
+	            System.out.println(ex.getMessage());
+	            System.out.println(ex.toString());
+        }
+		//seleccionaRaza.setModel(new DefaultComboBoxModel(new String[] {"Humano", "Elfo", "Orco"}));
 		seleccionaRaza.setFont(new Font("Harrington", Font.PLAIN, 13));
-		seleccionaRaza.setMaximumRowCount(3);
 		seleccionaRaza.setBounds(55, 73, 73, 20);
 		contentPane.add(seleccionaRaza);
 		
-		seleccionaCasta = new JComboBox();
+		seleccionaCasta = new JComboBox<String>();
 		seleccionaCasta.setBackground(Color.WHITE);
 		seleccionaCasta.setForeground(Color.RED);
 		seleccionaCasta.setFont(new Font("Harrington", Font.PLAIN, 13));
-		seleccionaCasta.setModel(new DefaultComboBoxModel(new String[] {"Guerrero", "Ladron", "Hechicero"}));
-		seleccionaCasta.setMaximumRowCount(3);
+		
+		try {
+			Object obj = cliente.listarCastas();
+			castasMap = (Map<Integer,String>) obj;
+			
+			if(!castasMap.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Listado correctamente.");
+				for (Integer key : castasMap.keySet()) {
+					seleccionaCasta.addItem((String)castasMap.get(key));
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Listado fallido.");
+		}catch (Exception ex) {
+	            System.out.println(ex.getMessage());
+	            System.out.println(ex.toString());
+        	}
+		//seleccionaCasta.setModel(new DefaultComboBoxModel<String>(new String[] {"Guerrero", "Ladron", "Hechicero"}));
 		seleccionaCasta.setBounds(185, 73, 97, 20);
 		contentPane.add(seleccionaCasta);
 		
-		seleccionaSexo = new JComboBox();
+		seleccionaSexo = new JComboBox<String>();
 		seleccionaSexo.setBackground(Color.WHITE);
 		seleccionaSexo.setForeground(Color.RED);
 		seleccionaSexo.setFont(new Font("Harrington", Font.PLAIN, 13));
-		seleccionaSexo.setModel(new DefaultComboBoxModel(new String[] {"Hombre", "Mujer"}));
+		seleccionaSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
 		seleccionaSexo.setMaximumRowCount(2);
 		seleccionaSexo.setBounds(332, 73, 73, 20);
 		contentPane.add(seleccionaSexo);
@@ -127,123 +166,96 @@ public class CreacionDePersonaje extends JFrame {
 				Object casta=seleccionaCasta.getSelectedItem();
 				Object sexo=seleccionaSexo.getSelectedItem();
 				String cadena;
+				PeticionCrearPersonaje petCrearPersonaje = new PeticionCrearPersonaje(cliente.getIdUsuario(), nameField.getText(), getKeyByValue(razasMap,String.valueOf(raza)), getKeyByValue(castasMap,String.valueOf(casta)), (char)String.valueOf(sexo).charAt(0));
+				
+				int respuesta = cliente.crearPersonaje(petCrearPersonaje);
+				if(respuesta == CodigoPeticion.REGISTRO_PERSONAJE_CORRECTO) {
+					JOptionPane.showMessageDialog(null, "Personaje Registrado correctamente.");
+					dispose();
 				
 				switch ((cadena=String.valueOf(raza))) {
 						
 				case "Orco":
 				{
 					p=new Orco(String.valueOf(sexo));	
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nameField.getText());
 					
 					switch ((cadena=String.valueOf(casta))) {
 						
 					case "Hechicero":
 					{
 						c=new Hechicero();
-						
 						p.setCasta(c);
-						
 						break;
-						
 					}
-							
 					case "Ladron":
 					{
 						c=new Ladron();
-						
 						p.setCasta(c);
-								
 						break;
 					}
-							
 					case "Guerrero":
 					{
 						c=new Guerrero();
-						
 						p.setCasta(c);
-						
 						break;
 					}
-					
 					}
-					
 					break;
-				}
-							
+				}		
 				case "Humano":
 				{
 					p=new Humano(String.valueOf(sexo));
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nameField.getText());
 					switch ((cadena=String.valueOf(casta))) {
-					
 					case "Hechicero":
 					{
 						c=new Hechicero();
-								
 						p.setCasta(c);
-								
 						break;
 					}
-							
 					case "Ladron":
 					{
-						c=new Ladron();
-						
+						c=new Ladron();		
 						p.setCasta(c);
-								
 						break;
 					}
-							
 					case "Guerrero":
 					{
 						c=new Guerrero();
-						
 						p.setCasta(c);
-								
 						break;
 					}
-					
 					}
-					
 					break;
-				}
 					
+				}
 				case "Elfo":
 				{
 					p=new Elfo(String.valueOf(sexo));
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nameField.getText());
 					
 					switch ((cadena=String.valueOf(casta))) {
 					
 					case "Hechicero":
 					{
 						c=new Hechicero();
-							
 						p.setCasta(c);
-						
 						break;
 					}
-							
 					case "Ladron":
 					{
 						c=new Ladron();
-						
 						p.setCasta(c);
-						
 						break;
 					}
-							
 					case "Guerrero":
 					{
 						c=new Guerrero();
-						
 						p.setCasta(c);
-						
 						break;
 					}
-					
 					}
-			
 					break;
 				}
 				}
@@ -251,11 +263,16 @@ public class CreacionDePersonaje extends JFrame {
 				p.bonificacionDeCasta();
 				ElementosPrincipales.crearJugador(p,cliente);
 				dispose();
+				JOptionPane.showMessageDialog(null, "vamos");
 				ElegirMapa elegir = new ElegirMapa(cliente);
+				}
+				else{
+					if(respuesta == CodigoPeticion.REGISTRO_PERSONAJE_INCORRECTO)
+						JOptionPane.showMessageDialog(null, "Ya existe un personaje con ese nombre, elegí otro.");
+				}
 			}
-			
-				
-		});
+		}
+		);
 		
 		btnConfirmar.setForeground(Color.BLUE);
 		btnConfirmar.setFont(new Font("Harrington", Font.PLAIN, 13));
@@ -274,5 +291,13 @@ public class CreacionDePersonaje extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+	    for (Entry<T, E> entry : map.entrySet()) {
+	        if (Objects.equals(value, entry.getValue())) {
+	            return entry.getKey();
+	        }
+	    }
+	    return null;
 	}
 }

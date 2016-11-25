@@ -64,7 +64,8 @@ public class ElegirMapa extends JFrame  {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				if(cliente.pedirJoinMapa1() == CodigoPeticion.PONER_EN_MAPA_JUGADOR_CORRECTO)
+				int res = cliente.pedirJoinMapa1();
+				if(res == CodigoPeticion.PONER_EN_MAPA_JUGADOR_CORRECTO)
             		JOptionPane.showMessageDialog(null, "Entraste al mapa correctamente");
             	else
             		JOptionPane.showMessageDialog(null, "Problema entrando al mapa");
@@ -77,9 +78,6 @@ public class ElegirMapa extends JFrame  {
 			            try
 			            {
 			            	cliente.levantarMapa("TheLordOfSouls",Constantes.ANCHO_JUEGO, Constantes.ALTO_JUEGO);
-			            	
-
-
 			            }
 			            catch (Exception e)
 			            {
