@@ -9,6 +9,8 @@ import java.net.Socket;
 
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
 import principal.Constantes;
 import principal.GestorPrincipal;
 import principal.peticiones.*;
@@ -23,9 +25,16 @@ public class Cliente{
 	private boolean estaConectado = false;
 	private String nombreUsuario;
 	private ClienThread cliThread;
+	private int idUsuario;
 
-	
-	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	public Cliente(String host){	
 		try {
 			s = new Socket(host, Server.PUERTO_POR_DEFECTO);
@@ -60,7 +69,7 @@ public class Cliente{
 
 	public int loguearse(PeticionLogueo petLog) {
 		try {
-			oos.writeObject(new Mensaje(CodigoPeticion.LOGEO,petLog));		//manda mje de login
+			oos.writeObject(new Mensaje(CodigoPeticion.LOGUEO,petLog));		//manda mje de login
 			oos.flush();
 		} catch (IOException e1) {
 			System.out.println("Error en el login al enviar petición por IOException");
@@ -81,13 +90,40 @@ public class Cliente{
 	}
 
 
-	public void crearJugador(String nombrePartida, int minJ, int maxJ) {
-		try {/*
-			POJOCrearPartida partidaNueva = new POJOCrearPartida(nombrePartida, minJ, maxJ);
-			out.writeUTF(partidaNueva.getDatosEnviable());*/
+	public int crearPersonaje(PeticionCrearPersonaje petCrearPersonaje) {
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.REGISTRO_PERSONAJE,petCrearPersonaje));
+			oos.flush();
 		} catch (Exception e) {
-			
+			System.out.println("Error en el registro al enviar petición por IOException");
 		}
+
+		JOptionPane.showMessageDialog(null, "Cliente espera in"); //Si lo saco no funciona
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getCodigo();
+	}
+	
+	public Object listarRazas() {
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.LISTAR_RAZAS,null));
+			oos.flush();
+		} catch (Exception e) {
+			System.out.println("Error en el registro al enviar petición por IOException");
+		}
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getObj();
+	}
+
+	public Object listarCastas() {
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.LISTAR_CASTAS,null));
+			oos.flush();
+		} catch (Exception e) {
+			System.out.println("Error en el registro al enviar petición por IOException");
+		}
+		JOptionPane.showMessageDialog(null, "Cliente espera in"); //Si lo saco no funciona
+		Mensaje respuestaSv = levantarMensaje();
+		return respuestaSv.getObj();
 	}
 	
 	public void levantarMapa(String titulo, final int ancho, final int alto) {
@@ -108,6 +144,7 @@ public class Cliente{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, "pedirJoinMapa1 levantar");
 		Mensaje respuestaSv = levantarMensaje();
 		return respuestaSv.getCodigo();
 	}

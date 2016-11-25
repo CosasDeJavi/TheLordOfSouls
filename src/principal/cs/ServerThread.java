@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import principal.Constantes;
 import principal.GestorPrincipal;
@@ -45,7 +49,7 @@ public class ServerThread extends Thread{
 				e.printStackTrace();
 			}
 			switch (mjeIn.getCodigo()){
-			case CodigoPeticion.LOGEO:
+			case CodigoPeticion.LOGUEO:
 				PeticionLogueo petLog = (PeticionLogueo) mjeIn.getObj();
 				try {
 					oos.writeObject(new Mensaje(sv.getConexionBD().login(petLog.getUsuario(), new String(petLog.getPassword())),null));		//manda mje con el código que devuelva el intento de login en la BD
@@ -75,12 +79,14 @@ public class ServerThread extends Thread{
 						oos.writeObject(new Mensaje(CodigoPeticion.PONER_EN_MAPA_JUGADOR_CORRECTO,null));
 					else
 						oos.writeObject(new Mensaje(CodigoPeticion.PONER_EN_MAPA_JUGADOR_INCORRECTO,null));
+					oos.flush();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 				/*
+				break;
 			 	case CodigoPeticion.LEVANTAR_MAPA:
 				PeticionLevantarMapa petMap = (PeticionLevantarMapa) mjeIn.getObj();
 				try {
@@ -96,9 +102,59 @@ public class ServerThread extends Thread{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}*/
+				break;
+				
+			case CodigoPeticion.REGISTRO_PERSONAJE:
+				PeticionCrearPersonaje petCrearPersonaje = (PeticionCrearPersonaje) mjeIn.getObj();
+				try {
+					oos.writeObject(new Mensaje(
+							sv.getConexionBD().registroPersonaje(petCrearPersonaje.getId_usuario(), petCrearPersonaje.getNombrePer(),petCrearPersonaje.getRaza(),petCrearPersonaje.getCasta(),petCrearPersonaje.getSexo()),null));
+					oos.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				break;
+			case CodigoPeticion.LISTAR_RAZAS:
+				try{
+					//ArrayList<String> listaRazas = sv.getConexionBD().listarRazas();
+					Map<Integer, String> razasMap = sv.getConexionBD().listarRazas();
+				
+					//if(!listaRazas.isEmpty())
+					if(!razasMap.isEmpty())
+					{
+					Mensaje mensaje = new Mensaje(CodigoPeticion.LISTAR_RAZAS,razasMap);
+					oos.writeObject(mensaje);
+					oos.flush();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "No se puede cargar las razas");
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				break;
-				*/
+			case CodigoPeticion.LISTAR_CASTAS:
+				try{
+					//ArrayList<String> listaCastas = sv.getConexionBD().listarCastas();
+					Map<Integer, String> castasMap = sv.getConexionBD().listarCastas();
+					if(!castasMap.isEmpty())
+					{
+					Mensaje mensaje = new Mensaje(CodigoPeticion.LISTAR_CASTAS,castasMap);
+					
+					oos.writeObject(mensaje);
+					oos.flush();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "No se puede cargar las Castas");
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
