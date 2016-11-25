@@ -1,24 +1,46 @@
 package principal.peticiones;
 
+import java.io.Serializable;
+
 import principal.cs.ServerThread;
 
-public class PeticionCrearPersonaje {//////////////FALTA IMPLEMENTARLA COMO PeticionLogueo/////////////////////
-									//////////////////////////////////////////////////////////////////////////
-	private String respuesta;
+public class PeticionCrearPersonaje implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id_usuario;
+	private String nombrePer;
+	private int raza;
+	private int casta;
+	private char sexo;
 	
-	public String getRespuesta() {
-		return respuesta;
+	public PeticionCrearPersonaje(int id_usuario, String nombrePer, int Raza, int Casta, char sexo) {
+		this.id_usuario = id_usuario;
+		this.raza=raza;
+		this.casta=casta;
+		this.nombrePer=nombrePer;
+		this.sexo=sexo;
 	}
 
-	public PeticionCrearPersonaje(String[] datosPeticion, ServerThread svThread) {
-	/*	String 	usuario = datosPeticion[1];
-		int 	minJ = Integer.parseInt(datosPeticion[2]),
-				maxJ = Integer.parseInt(datosPeticion[3]);
-		boolean resultado=svThread.getServer().getConexionBD().agregarJugador(usuario, minJ, maxJ);
-		if(resultado)
-			respuesta = CodigoPeticion.CREAR_JUGADOR_CORRECTO+"";
-		else
-			respuesta = CodigoPeticion.CREAR_JUGADOR_INCORRECTO+"";
-		*/
+	public int getId_usuario() {
+		return id_usuario;
 	}
+
+	public String getNombrePer() {
+		return nombrePer;
+	}
+
+	public int getRaza() {
+		return raza;
+	}
+
+	public int getCasta() {
+		return casta;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+	
 }
